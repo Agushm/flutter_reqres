@@ -106,7 +106,7 @@ class DetailUserView extends GetView<UsersController> {
                       ],
                     ),
                     child: InkWell(
-                      onTap: () => _launchUrl("telp:911"),
+                      onTap: () => _launchUrl("tel:911"),
                       child: Row(
                         children: [
                           Icon(
@@ -121,7 +121,7 @@ class DetailUserView extends GetView<UsersController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '0812-3134-589',
+                                '911',
                                 style: fontStyle2.copyWith(
                                     fontSize: 14, fontWeight: FontWeight.bold),
                               ),
