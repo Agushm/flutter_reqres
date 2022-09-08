@@ -22,4 +22,17 @@ class UserRepo extends DioClient {
       return null;
     }
   }
+
+  Future<dynamic> createUser({required Map<String, dynamic>? data}) async {
+    try {
+      var res = await request(
+        baseUrl + '/users',
+        RequestType.POST,
+        data: json.encode(data),
+      );
+      return res;
+    } catch (e) {
+      return null;
+    }
+  }
 }

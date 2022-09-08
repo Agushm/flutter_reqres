@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reqres/app/core/repository/repository.dart';
 import 'package:get/get.dart';
 
-import '../../../core/models/user.dart';
+import '../../../core/models/models.dart';
 
 class UsersController extends GetxController {
   List<User> users = [];
@@ -45,8 +45,20 @@ class UsersController extends GetxController {
     update();
   }
 
-  final formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final formUser = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController jobController = TextEditingController();
   bool formLoading = false;
+
+  Future<dynamic> editUser(String? id) async {
+    formLoading = true;
+    update();
+
+    var res = await UserRepo.instance.createUser(
+        data: {'name': nameController.text, 'job': jobController.text});
+
+    formLoading = false;
+    update();
+    return res;
+  }
 }

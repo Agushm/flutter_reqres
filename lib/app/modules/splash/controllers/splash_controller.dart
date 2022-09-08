@@ -1,11 +1,12 @@
 import 'package:flutter_reqres/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
+import '../../../core/models/models.dart';
+
 class SplashController extends GetxController {
   void initState() async {
-    print('init');
-    Future.delayed(Duration(seconds: 3))
-        .then((value) => Get.offAllNamed(Routes.LOGIN));
+    await Future.delayed(Duration(seconds: 3));
+    Get.offAllNamed(Routes.LOGIN, arguments: User.fromJson(mockUser));
   }
 
   @override

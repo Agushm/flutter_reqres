@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reqres/app/utils/dialog_utils.dart';
 
 import 'package:get/get.dart';
 
+import '../../../core/models/models.dart';
 import '../../../theme/theme.dart';
 import '../../../ui/atoms/atoms.dart';
 import '../controllers/users_controller.dart';
@@ -12,43 +14,52 @@ class FormUsersView extends GetView<UsersController> {
   @override
   Widget build(BuildContext context) {
     var usersState = Get.find<UsersController>();
+    Employee? user = Get.arguments;
+    usersState.nameController.text = user!.name;
     return Scaffold(
-      backgroundColor: Constants.grey,
+      backgroundColor: Constants.white,
       appBar: AppBar(
         backgroundColor: Constants.white,
         elevation: 1,
         title: Text(
-          'Contacts',
+          user == null ? 'Add Employee' : 'Edit Employee',
           style: fontStyle2.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Constants.primary,
+            size: 25,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Form(
-          key: usersState.formKey,
+          key: usersState.formUser,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                child: Text('Login',
-                    style: fontStyle2.copyWith(
-                        fontSize: 35, fontWeight: FontWeight.bold)),
+              SizedBox(
+                height: 20,
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
-                  controller: usersState.emailController,
+                  controller: usersState.nameController,
                   decoration: formDecoration.copyWith(
                     label: Text(
-                      'Email',
+                      'Name',
                       style: fontStyle.copyWith(
                           fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
                   validator: (value) {
-                    if (!value.toString().isEmail) {
-                      return "Masukan email yang valid";
+                    if (value!.isEmpty) {
+                      return "Please input name employee";
                     }
                     return null;
                   },
@@ -58,24 +69,23 @@ class FormUsersView extends GetView<UsersController> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 child: TextFormField(
-                  controller: usersState.passwordController,
+                  controller: usersState.jobController,
                   decoration: formDecoration.copyWith(
                     label: Text(
-                      'Password',
+                      'Job',
                       style: fontStyle.copyWith(
                           fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  obscureText: true,
                   validator: (value) {
-                    if (value!.isEmpty || value.trim().length < 3) {
-                      return "Masukan password";
+                    if (value!.isEmpty) {
+                      return "Please input job employee";
                     }
                     return null;
                   },
                 ),
               ),
-              SizedBox(height: 60),
+              SizedBox(height: 15),
             ],
           ),
         ),
@@ -88,13 +98,30 @@ class FormUsersView extends GetView<UsersController> {
           padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
           child: ConfirmButton(
             isLoading: usersState.formLoading,
-            onPressed: () {
-              if (!usersState.formKey.currentState!.validate()) {
+            onPressed: () async {
+              if (!usersState.formUser.currentState!.validate()) {
                 return;
               }
-              //usersState.login();
+              dynamic id = user == null ? null : user.id;
+              var res = await usersState.editUser(id);
+              Get.back();
+              if (res != null) {
+                DialogUtils.instance.showEmployeDialog(
+                  context,
+                  title: id == null
+                      ? 'Success Add Employee'
+                      : 'Success Edit Employee',
+                  employee: Employee.fromJson(res),
+                );
+              } else {
+                DialogUtils.instance.showInfo(context,
+                    title: id == null
+                        ? 'Failed Add Employee'
+                        : 'Failed Edit Employee',
+                    message: '');
+              }
             },
-            label: 'Login',
+            label: 'SAVE',
           ),
         );
       }),

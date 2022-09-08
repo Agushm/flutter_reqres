@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reqres/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 
@@ -17,7 +18,7 @@ class UsersView extends GetView<UsersController> {
         backgroundColor: Constants.white,
         elevation: 1,
         title: Text(
-          'Contacts',
+          'List Employee',
           style: fontStyle2.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
@@ -30,41 +31,53 @@ class UsersView extends GetView<UsersController> {
             itemBuilder: (context, i) {
               var d = usersState.users[i];
               return Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.only(bottom: 20),
-                  decoration: BoxDecoration(
-                    color: Constants.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(d.avatar),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('${d.firstName} ${d.lastName}',
-                              style: fontStyle.copyWith(
-                                  fontSize: 14, fontWeight: FontWeight.bold)),
-                          Text(
-                            '${d.email}',
-                            style: fontStyle.copyWith(fontSize: 14),
-                          )
-                        ],
-                      ),
-                    ],
-                  ));
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  color: Constants.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                ),
+                child: InkWell(
+                    onTap: () => Get.toNamed(Routes.DETAIL_USER, arguments: d),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(d.avatar),
+                            backgroundColor: Constants.primary),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('${d.firstName} ${d.lastName}',
+                                style: fontStyle.copyWith(
+                                    fontSize: 14, fontWeight: FontWeight.bold)),
+                            Text(
+                              '${d.email}',
+                              style: fontStyle.copyWith(fontSize: 14),
+                            )
+                          ],
+                        ),
+                      ],
+                    )),
+              );
             },
           );
         },
       ),
       floatingActionButton: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(Routes.FORM_USER);
+        },
         height: 50,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),

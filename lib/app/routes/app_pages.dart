@@ -6,6 +6,8 @@ import '../modules/auth/views/login_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/users/bindings/users_binding.dart';
+import '../modules/users/views/detail_user_view.dart';
+import '../modules/users/views/form_users_view.dart';
 import '../modules/users/views/users_view.dart';
 
 part 'app_routes.dart';
@@ -34,6 +36,16 @@ class AppPages {
     GetPage(
       name: _Paths.USERS,
       page: () => UsersView(),
+      binding: UsersBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORM_USER,
+      page: () => FormUsersView(),
+      binding: UsersBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_USER,
+      page: () => DetailUserView(),
       binding: UsersBinding(),
     ),
   ];

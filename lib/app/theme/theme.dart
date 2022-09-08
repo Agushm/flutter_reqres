@@ -30,3 +30,11 @@ InputDecoration formDecoration = InputDecoration(
   enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8), borderSide: BorderSide.none),
 );
+
+double deviceWidth(BuildContext context) {
+  return MediaQuery.of(context).size.width;
+}
+
+double deviceHeight(BuildContext context) {
+  return MediaQuery.of(context).size.height;
+}
