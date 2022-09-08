@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reqres/app/ui/atoms/atoms.dart';
+import 'package:flutter_reqres/app/utils/dialog_utils.dart';
 
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../theme/theme.dart';
 import '../controllers/auth_controller.dart';
 
@@ -39,7 +41,7 @@ class LoginView extends GetView<AuthController> {
                   ),
                   validator: (value) {
                     if (!value.toString().isEmail) {
-                      return "Masukan email yang valid";
+                      return "Input vaild email";
                     }
                     return null;
                   },
@@ -60,7 +62,7 @@ class LoginView extends GetView<AuthController> {
                   obscureText: true,
                   validator: (value) {
                     if (value!.isEmpty || value.trim().length < 3) {
-                      return "Masukan password";
+                      return "Input valid password";
                     }
                     return null;
                   },
@@ -73,17 +75,23 @@ class LoginView extends GetView<AuthController> {
       ),
       resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: GetBuilder<AuthController>(builder: (context) {
+      floatingActionButton: GetBuilder<AuthController>(builder: (authState) {
         return Container(
           width: double.infinity,
           padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
           child: ConfirmButton(
-            isLoading: context.isLoading,
-            onPressed: () {
+            isLoading: authState.isLoading,
+            onPressed: () async {
               if (!authState.formKey.currentState!.validate()) {
                 return;
               }
-              authState.login();
+              var res = await authState.login();
+              if (res != null && res['token'] != null) {
+                Get.offAllNamed(Routes.USERS);
+              } else {
+                DialogUtils.instance.showInfo(context,
+                    title: 'Login Failed', message: '${res['error']}');
+              }
             },
             label: 'Login',
           ),

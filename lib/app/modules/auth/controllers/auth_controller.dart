@@ -25,7 +25,7 @@ class AuthController extends GetxController {
   }
 
   bool isLoading = false;
-  Future login() async {
+  Future<dynamic> login() async {
     isLoading = true;
     update();
     var res = await AuthRepo.instance
@@ -33,11 +33,7 @@ class AuthController extends GetxController {
 
     isLoading = false;
     update();
-    if (res != null && res['token'] != null) {
-      Get.offAllNamed(Routes.USERS);
-    } else {
-      Get.snackbar('Login Failed', '${res['error']}');
-    }
+
     return res;
   }
 }

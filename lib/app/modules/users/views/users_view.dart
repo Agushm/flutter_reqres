@@ -25,6 +25,11 @@ class UsersView extends GetView<UsersController> {
       ),
       body: GetBuilder<UsersController>(
         builder: (usersState) {
+          if (usersState.usersLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
           return ListView.builder(
             padding: EdgeInsets.all(20),
             itemCount: usersState.users.length,
@@ -89,7 +94,7 @@ class UsersView extends GetView<UsersController> {
             color: Constants.white,
           ),
           SizedBox(width: 5),
-          Text('Contact',
+          Text('Employee',
               style: fontStyle2.copyWith(
                   color: Colors.white, fontWeight: FontWeight.bold)),
         ]),
