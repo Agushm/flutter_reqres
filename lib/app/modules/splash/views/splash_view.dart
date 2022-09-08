@@ -13,7 +13,7 @@ class SplashView extends GetView<SplashController> {
     return Scaffold(
       body: Center(
         child: Text(
-          'ReqRes',
+          'ReqRes.in',
           style: fontStyle2.copyWith(fontSize: 25, fontWeight: FontWeight.bold),
         ),
       ),
