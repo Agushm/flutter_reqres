@@ -14,7 +14,7 @@ class SplashView extends GetView<SplashController> {
       body: Center(
         child: Text(
           'ReqRes',
-          style: fontStyle.copyWith(fontSize: 25, fontWeight: FontWeight.bold),
+          style: fontStyle2.copyWith(fontSize: 25, fontWeight: FontWeight.bold),
         ),
       ),
     );

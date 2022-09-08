@@ -59,6 +59,8 @@ class UsersController extends GetxController {
 
     formLoading = false;
     update();
+    nameController.text = '';
+    jobController.text = '';
     return res;
   }
 }

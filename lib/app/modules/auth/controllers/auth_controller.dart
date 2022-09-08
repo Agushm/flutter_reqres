@@ -11,9 +11,6 @@ class AuthController extends GetxController {
 
   @override
   void onInit() {
-    print('init');
-    emailController.text = "eve.holt@reqres.in";
-    passwordController.text = "cityslicka";
     super.onInit();
   }
 

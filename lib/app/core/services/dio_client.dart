@@ -61,10 +61,6 @@ class DioClient {
       return null;
     }
 
-    print("URL: $url");
-    print("Param: $params");
-    print("Body: $data");
-    print("Response: ${response.data}");
     //* Handling error and status code
 
     return response.data;

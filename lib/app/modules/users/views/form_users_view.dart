@@ -15,7 +15,9 @@ class FormUsersView extends GetView<UsersController> {
   Widget build(BuildContext context) {
     var usersState = Get.find<UsersController>();
     Employee? user = Get.arguments;
-    usersState.nameController.text = user!.name;
+    if (user != null) {
+      usersState.nameController.text = user.name;
+    }
     return Scaffold(
       backgroundColor: Constants.white,
       appBar: AppBar(
