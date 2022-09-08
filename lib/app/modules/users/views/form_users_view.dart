@@ -17,6 +17,8 @@ class FormUsersView extends GetView<UsersController> {
     Employee? user = Get.arguments;
     if (user != null) {
       usersState.nameController.text = user.name;
+    } else {
+      usersState.nameController.text = '';
     }
     return Scaffold(
       backgroundColor: Constants.white,

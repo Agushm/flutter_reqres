@@ -1,8 +1,8 @@
-# flutter_reqres
+## Flutter ReqRes.in
 
-Flutter project consume API from reqres.io
+Flutter project consume API from reqres.in
 
-## Login Account
+# Login Account
 - Email = eve.holt@reqres.in
 - Password = cityslicka
 

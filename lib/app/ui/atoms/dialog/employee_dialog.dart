@@ -64,8 +64,8 @@ class EmployeeDialog extends StatelessWidget {
             color: Constants.primary,
             onPressed: () => Get.back(),
             child: Text(
-              'Tutup',
-              style: fontStyle.copyWith(color: Colors.white),
+              'Close',
+              style: fontStyle2.copyWith(color: Colors.white),
             ),
           ),
           SizedBox(height: 40),
