@@ -11,6 +11,7 @@ class SplashView extends GetView<SplashController> {
   Widget build(BuildContext context) {
     Get.put(SplashController());
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Text(
           'ReqRes.in',
